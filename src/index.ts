@@ -21,6 +21,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 				(result) => {
 					promise.started = true;
 					promise.finished = true;
+					promise.success = true;
 					promise.result = result;
 					dispatch({ type, payload: promise });
 				}
@@ -29,6 +30,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 				(error) => {
 					promise.started = true;
 					promise.finished = true;
+					promise.failure = true;
 					promise.error = error;
 					dispatch({ type, payload: promise });
 				}
