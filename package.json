@@ -1,0 +1,36 @@
+{
+  "name": "redux-promise-hook",
+  "version": "0.1.0",
+  "description": "A redux middleware to watch for state changes of promises",
+  "main": "./index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/somesocks/redux-promise-hook.git"
+  },
+  "keywords": [
+    "redux",
+    "promises"
+  ],
+  "author": "James Larsen (somesocks@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/somesocks/redux-promise-hook/issues"
+  },
+  "homepage": "https://github.com/somesocks/redux-promise-hook",
+  "dependencies": {
+    "vet": "3.2.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "12.12.3",
+    "@typescript-eslint/eslint-plugin": "2.6.1",
+    "@typescript-eslint/parser": "2.6.1",
+    "callback-patterns": "^2.4.0",
+    "eslint": "6.6.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "6.2.2",
+    "redux": "^4.0.5",
+    "typescript": "3.7.2"
+  }
+}
