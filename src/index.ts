@@ -7,16 +7,22 @@ const isHookable = (action) => (
 	&& (action.payload.finished == null)
 );
 
+let uid = 0;
+
 const reduxPromiseHook = (store) => (next) => (action) => {
 	const dispatch = store.dispatch;
 
 	if (isHookable(action)) {
 		const type = action.type;
 		let promise = action.payload;
+		const id = promise.id || uid++;
+		const request = promise.request;
+
 		promise.started = true;
 		promise.finished = false;
 		promise.success = false;
 		promise.failure = false;
+		promise.id = id;
 
 		promise = promise
 			.then(
@@ -40,6 +46,8 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 				}
 			);
 
+		promise.id = id;
+		promise.request = request;
 	}
 
   return next(action);

@@ -24,13 +24,13 @@ help:
 ##		make setup - setup for local development
 ##
 setup:
-	sh $(TASKS)/setup.sh
+	$(TASKS)/setup.sh
 
 
 ##		make build - build the package
 ##
 build:
-	sh $(TASKS)/build.sh
+	$(TASKS)/build.sh
 
 
 
@@ -39,7 +39,7 @@ build:
 test: test-mocha
 
 test-mocha:
-	sh $(TASKS)/test-mocha.sh
+	$(TASKS)/test-mocha.sh
 
 
 
