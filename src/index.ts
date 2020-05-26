@@ -20,7 +20,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		promise = promise
 			.then(
 				(result) => {
-					const payload = promise.then();
+					const payload = promise.then(res => res);
 					payload.id = id;
 					payload.request = request;
 					payload.finished = true;
@@ -30,7 +30,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 					dispatch({ ...action, payload: payload });
 				},
 				(error) => {
-					const payload = promise.then();
+					const payload = promise.then(res => res);
 					payload.id = id;
 					payload.request = request;
 					payload.finished = true;
