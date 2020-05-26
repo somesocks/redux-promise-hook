@@ -13,7 +13,6 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 	const dispatch = store.dispatch;
 
 	if (isHookable(action)) {
-		const type = action.type;
 		let promise = action.payload;
 		const id = promise.id || uid++;
 		const request = promise.request;
@@ -21,41 +20,39 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		promise = promise
 			.then(
 				(result) => {
-					promise = promise.then();
-					promise.id = id;
-					promise.request = request;
-					promise.started = true;
-					promise.finished = true;
-					promise.success = true;
-					promise.failure = false;
-					promise.result = result;
-					dispatch({ ...action, payload: promise });
+					const payload = promise.then();
+					payload.id = id;
+					payload.request = request;
+					payload.finished = true;
+					payload.success = true;
+					payload.failure = false;
+					payload.result = result;
+					dispatch({ ...action, payload: payload });
 				},
 				(error) => {
-					promise = promise.then();
-					promise.id = id;
-					promise.request = request;
-					promise.started = true;
-					promise.finished = true;
-					promise.success = false;
-					promise.failure = true;
-					promise.error = error;
-					dispatch({ ...action, payload: promise });
+					const payload = promise.then();
+					payload.id = id;
+					payload.request = request;
+					payload.finished = true;
+					payload.success = false;
+					payload.failure = true;
+					payload.error = error;
+					dispatch({ ...action, payload: payload });
 				}
 			);
 
 		promise.id = id;
 		promise.request = request;
-		promise.started = true;
 		promise.finished = false;
 		promise.success = false;
 		promise.failure = false;
 
 		// clone original action with new promise
-		action = { ...action, payload: promise };
+		return next({ ...action, payload: promise });
+	} else {
+		return next(action);
 	}
 
-  return next(action);
 };
 
 export default reduxPromiseHook;
