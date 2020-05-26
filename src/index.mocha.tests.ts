@@ -2,6 +2,7 @@
 import Assert from 'callback-patterns/Assert';
 import InSeries from 'callback-patterns/InSeries';
 import Delay from 'callback-patterns/Delay';
+import Logging from 'callback-patterns/Logging';
 import TestCase from 'callback-patterns/testing/AssertionTest';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
@@ -65,6 +66,10 @@ describe(
 					Assert(
 						({ setup }) => setup.store.getState().promise.result === 2,
 						'promise bad result'
+					),
+					Assert(
+						({ request }) => request.action.payload.id == null,
+						'original promise was modified'
 					)
 				)
 				.build()
@@ -99,6 +104,10 @@ describe(
 				Assert(
 					({ setup }) => setup.store.getState().promise.error === 2,
 					'promise bad result'
+				),
+				Assert(
+					({ request }) => request.action.payload.id == null,
+					'original promise was modified'
 				)
 			)
 			.build()

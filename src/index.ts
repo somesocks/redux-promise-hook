@@ -18,12 +18,6 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		const id = promise.id || uid++;
 		const request = promise.request;
 
-		promise.started = true;
-		promise.finished = false;
-		promise.success = false;
-		promise.failure = false;
-		promise.id = id;
-
 		promise = promise
 			.then(
 				(result) => {
@@ -46,6 +40,13 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 
 		promise.id = id;
 		promise.request = request;
+		promise.started = true;
+		promise.finished = false;
+		promise.success = false;
+		promise.failure = false;
+
+		// clone original action with new promise
+		action = { ...action, payload: promise };
 	}
 
   return next(action);
