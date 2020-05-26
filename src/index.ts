@@ -20,7 +20,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		promise = promise
 			.then(
 				(result) => {
-					const payload = promise.then(res => res);
+					const payload = Promise.resolve(result) as any;
 					payload.id = id;
 					payload.request = request;
 					payload.finished = true;
@@ -28,9 +28,13 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 					payload.failure = false;
 					payload.result = result;
 					dispatch({ ...action, payload: payload });
+					return result;
 				},
 				(error) => {
-					const payload = promise.then(res => res);
+					const payload = Promise.reject(error) as any;
+					// ugly little hack to deal with future consequences of DEP0018
+					// https://github.com/nodejs/node/issues/20392
+					payload.catch((err) => {});
 					payload.id = id;
 					payload.request = request;
 					payload.finished = true;
