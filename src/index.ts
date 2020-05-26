@@ -21,20 +21,26 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		promise = promise
 			.then(
 				(result) => {
+					promise = promise.then();
+					promise.id = id;
+					promise.request = request;
 					promise.started = true;
 					promise.finished = true;
 					promise.success = true;
 					promise.failure = false;
 					promise.result = result;
-					dispatch({ type, payload: promise });
+					dispatch({ ...action, payload: promise });
 				},
 				(error) => {
+					promise = promise.then();
+					promise.id = id;
+					promise.request = request;
 					promise.started = true;
 					promise.finished = true;
 					promise.success = false;
 					promise.failure = true;
 					promise.error = error;
-					dispatch({ type, payload: promise });
+					dispatch({ ...action, payload: promise });
 				}
 			);
 
