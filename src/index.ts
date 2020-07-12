@@ -1,4 +1,14 @@
 
+export type TPromiseState<TResult = any, TError = any, TRequest = any> = Promise<TResult> & {
+	id : number | string,
+	finished : boolean,
+	success : boolean,
+	failure : boolean,
+	result ?: TResult,
+	error ?: TError,
+	request ?: TRequest
+};
+
 const isHookable = (action) => (
 	(action.payload != null)
 	&& (typeof action.payload === 'object')
@@ -20,7 +30,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 		promise = promise
 			.then(
 				(result) => {
-					const payload = Promise.resolve(result) as any;
+					const payload : TPromiseState = Promise.resolve(result) as any;
 					payload.id = id;
 					payload.request = request;
 					payload.finished = true;
@@ -31,7 +41,7 @@ const reduxPromiseHook = (store) => (next) => (action) => {
 					return result;
 				},
 				(error) => {
-					const payload = Promise.reject(error) as any;
+					const payload : TPromiseState = Promise.reject(error) as any;
 					// ugly little hack to deal with future consequences of DEP0018
 					// https://github.com/nodejs/node/issues/20392
 					payload.catch((err) => {});

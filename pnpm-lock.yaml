@@ -1,5 +1,3 @@
-dependencies:
-  vet: 3.2.0
 devDependencies:
   '@types/mocha': 5.2.7
   '@types/node': 12.12.3
@@ -11,6 +9,7 @@ devDependencies:
   mocha: 6.2.2
   redux: 4.0.5
   typescript: 3.7.2
+  vet: 3.2.0
 lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.8.3:
@@ -52,6 +51,7 @@ packages:
       functional-red-black-tree: 1.0.1
       regexpp: 2.0.1
       tsutils: 3.17.1_typescript@3.7.2
+      typescript: 3.7.2
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -101,6 +101,7 @@ packages:
       lodash.unescape: 4.0.1
       semver: 6.3.0
       tsutils: 3.17.1_typescript@3.7.2
+      typescript: 3.7.2
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -1775,7 +1776,7 @@ packages:
     resolution:
       integrity: sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
   /vet/3.2.0:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-ROkWnOLEqhW07FphmKmklghM6Rruwp7eOb4bHSa6P9U9DSP3b65OL6v96Idgw5p0cEPEFjoVaIIhV0KdUkv86g==
   /walk-back/2.0.1:
